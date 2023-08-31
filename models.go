@@ -1,6 +1,9 @@
 package goperset
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+)
 
 type LoginPayload struct {
 	Password string `json:"password"`
@@ -12,6 +15,7 @@ type LoginPayload struct {
 type Goperset struct {
 	BasePath string
 	Client   *http.Client
+	Context  context.Context
 }
 
 type DatabasePayload struct {

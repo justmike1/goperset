@@ -30,11 +30,12 @@ func NewClient(basePath string) *Goperset {
 	return &Goperset{
 		BasePath: basePath,
 		Client:   &http.Client{},
+		Context:  NewContext(),
 	}
 }
 
-func getCsrftoken(ctx context.Context, client *Goperset, token string) (string, error) {
-	body, err := ClientResty(ctx, client, token, "", "application/json", "GET", csrfEndpoint, nil)
+func getCsrftoken(client *Goperset, token string) (string, error) {
+	body, err := ClientResty(client, token, "", "application/json", "GET", csrfEndpoint, nil)
 	if err != nil {
 		return "", err
 	}
@@ -46,14 +47,14 @@ func getCsrftoken(ctx context.Context, client *Goperset, token string) (string, 
 	return csrfResp.AccessToken, nil
 }
 
-func GetAccessTokens(ctx context.Context, client *Goperset, username string, password string) (string, string, error) {
+func GetAccessTokens(client *Goperset, username string, password string) (string, string, error) {
 	payload := LoginPayload{
 		Password: password,
 		Provider: "db",
 		Refresh:  true,
 		Username: username,
 	}
-	body, err := ClientResty(ctx, client, "", "", "application/json", "POST", loginEndpoint, payload)
+	body, err := ClientResty(client, "", "", "application/json", "POST", loginEndpoint, payload)
 	if err != nil {
 		return "", "", err
 	}
@@ -63,14 +64,14 @@ func GetAccessTokens(ctx context.Context, client *Goperset, username string, pas
 	if err = json.NewDecoder(ioBody).Decode(&loginResp); err != nil {
 		return "", "", err
 	}
-	csrfToken, err := getCsrftoken(ctx, client, loginResp.AccessToken)
+	csrfToken, err := getCsrftoken(client, loginResp.AccessToken)
 	if err != nil {
 		return "", "", err
 	}
 	return loginResp.AccessToken, csrfToken, nil
 }
 
-func ClientResty(ctx context.Context, client *Goperset, token string, csrfToken string, contentType string, method string, endpoint string, payload interface{}) ([]byte, error) {
+func ClientResty(client *Goperset, token string, csrfToken string, contentType string, method string, endpoint string, payload interface{}) ([]byte, error) {
 	basePath := makeURL(client.BasePath)
 	var payloadBuffer io.Reader
 	// Check if payload is of type *bytes.Buffer
@@ -89,7 +90,7 @@ func ClientResty(ctx context.Context, client *Goperset, token string, csrfToken 
 		return nil, err
 	}
 
-	req = req.WithContext(ctx)
+	req = req.WithContext(client.Context)
 	req.Header.Set("Content-Type", contentType)
 	if token != "" {
 		req.Header.Set("Authorization", "Bearer "+token)

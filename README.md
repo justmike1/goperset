@@ -23,24 +23,23 @@ For release notes please consult the specific releases [here](https://github.com
 ### Installation
 
 ```shell
-go get github.com/justmike1/goperset@latest
+go get github.com/justmike1/goperset@v0.1.0
 ```
 
 ### Importing
 
 ```go
- import "github.com/justmike1/goperset@latest"
+ import "github.com/justmike1/goperset@v0.1.0"
 ```
 
 ### Connecting to Superset Client
 
 ```go
 func main() {
-    client := goperset.NewClient("https://superset.domain.net/")
-    ctx := goperset.NewContext()
-    authToken, csrfToken, err := goperset.GetAccessTokens(ctx, client, "admin", "admin")
+    client := goperset.NewClient("https://superset.domain.net/") // Client also has a context
+    authToken, csrfToken, err := goperset.GetAccessTokens(client, "admin", "admin")
     if err != nil {
-        t.Errorf("Error getting access token: %v", err)
+        t.Errorf("Error getting access tokens: %v", err)
         return
     }
 }

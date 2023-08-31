@@ -11,9 +11,8 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestGetAccessTokens(t *testing.T) {
-	client := goperset.NewClient("https://superset.domain.net/")
-	ctx := goperset.NewContext()
-	authToken, csrfToken, err := goperset.GetAccessTokens(ctx, client, "admin", "admin")
+	client := goperset.NewClient("https://superset.domain.net/") // Client also has a context
+	authToken, csrfToken, err := goperset.GetAccessTokens(client, "admin", "admin")
 	if err != nil {
 		t.Errorf("Error getting access token: %v", err)
 		return
