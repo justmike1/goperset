@@ -32,10 +32,17 @@ go get github.com/justmike1/goperset@latest
  import "github.com/justmike1/goperset@latest"
 ```
 
-### Create New User
+### Connecting to Superset Client
 
 ```go
- client := goperset.NewClient("https://mycool.superset.instance")
- ctx := context.Background()
+func main() {
+    client := goperset.NewClient("https://superset.domain.net/")
+    ctx := goperset.NewContext()
+    authToken, csrfToken, err := goperset.GetAccessTokens(ctx, client, "admin", "admin")
+    if err != nil {
+        t.Errorf("Error getting access token: %v", err)
+        return
+    }
+}
 ```
  
