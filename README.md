@@ -44,4 +44,23 @@ func main() {
     }
 }
 ```
- 
+
+### Example of a general REST request. (Creating a new database connection)
+
+```go
+func createDatabase(client, token string, csrfToken string) error {
+    databaseUri := fmt.Sprintf("postgresql+psycopg2://%s:%s@%s:%s/database", "username", "password", "postgresql", "5432")
+    payload := structs.DatabasePayload{
+        ConfigurationMethod: "sqlalchemy_form",
+        Engine:              "postgresql",
+        DatabaseName:        "PostgreSQL",
+        SQLAlchemyURI:       databaseUri,
+    }
+    body, err := ClientResty(client, token, csrfToken, "application/json", "POST", goperset.DatabaseController, payload)
+    if err != nil {
+        return fmt.Errorf("error sending request: %v", err)
+    }
+    log.Infof("Database Creation Response: %s", string(body))
+    return nil
+}
+```
