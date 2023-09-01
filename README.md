@@ -74,5 +74,5 @@ type GoPerset interface {
  NewClient(basePath string) &Goperset
  GetAccessTokens(client *Goperset, username string, password string) (string, string, error)
  ClientResty(client *Goperset, token string, csrfToken string, contentType string, method string, endpoint string, payload interface{}) ([]byte, error)
-
+}
 ```
