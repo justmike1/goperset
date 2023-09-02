@@ -36,8 +36,9 @@ go get github.com/justmike1/goperset@v0.1.0
 
 ```go
 func main() {
-    client := goperset.NewClient("https://superset.domain.net/") // Client also has a context
-    authToken, csrfToken, err := goperset.GetAccessTokens(client, "admin", "admin")
+    ctx := context.Background()
+    client := goperset.NewClient(ctx, "https://superset.domain.net/") // Client also has a context
+    tokens, err := goperset.GetAccessTokens(client, "admin", "admin")
     if err != nil {
         t.Errorf("Error getting access tokens: %v", err)
         return
@@ -56,7 +57,7 @@ func createDatabase(client, token string, csrfToken string) error {
         DatabaseName:        "PostgreSQL",
         SQLAlchemyURI:       databaseUri,
     }
-    body, err := goperset.ClientResty(client, token, csrfToken, "application/json", "POST", goperset.DatabaseController, payload)
+    body, err := goperset.ClientResty(client, tokens, "application/json", "POST", goperset.DatabaseController, payload)
     if err != nil {
         return fmt.Errorf("error sending request: %v", err)
     }

@@ -12,6 +12,11 @@ type LoginPayload struct {
 	Username string `json:"username"`
 }
 
+type ClientToken struct {
+	AccessToken string
+	CsrfToken   string
+}
+
 type Goperset struct {
 	BasePath string
 	Client   *http.Client
