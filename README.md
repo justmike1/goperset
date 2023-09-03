@@ -53,11 +53,11 @@ func main() {
 ```go
 func createDatabase(client, tokens string) error {
     databaseUri := fmt.Sprintf("postgresql+psycopg2://%s:%s@%s:%s/database", "username", "password", "postgresql", "5432")
-    payload := structs.DatabasePayload{
-        ConfigurationMethod: "sqlalchemy_form",
-        Engine:              "postgresql",
-        DatabaseName:        "PostgreSQL",
-        SQLAlchemyURI:       databaseUri,
+    payload := goperset.DatabasePayload{
+        ConfigurationMethod: goperset.StringP("sqlalchemy_form"),
+        Engine:              goperset.StringP("postgresql+psycopg2"),
+        DatabaseName:        goperset.StringP("postgresql"),
+        SQLAlchemyURI:       goperset.StringP(databaseUri),
     }
     _, err := goperset.CreateDatabase(client, tokens, payload)
     if err != nil {
@@ -72,12 +72,25 @@ func createDatabase(client, tokens string) error {
 ```go
 // GoPerset holds all methods a client should fulfill
 type GoPerset interface {
-
+	
+ // Client
  NewClient(basePath string) &Goperset
- GetAccessTokens(client *Goperset, username string, password string) (string, string, error)
+ GetAccessTokens(client *Goperset, username string, password string) (ClientToken, error)
  ClientResty(client *Goperset, token string, csrfToken string, contentType string, method string, endpoint string, payload interface{}) ([]byte, error)
  
  // Database
  CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayload) ([]byte, error)
+ 
+ // Dataset
+ CreateDataset(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error)
+ 
+ // Chart
+ CreateChart(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error)
 }
+```
+
+### Unit Testing
+
+```shell
+SUPERSET_BASE_PATH=https://superset.domain.net go test client_test.go -v
 ```

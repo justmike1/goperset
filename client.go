@@ -37,6 +37,22 @@ func CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayloa
 	return body, nil
 }
 
+func CreateDataset(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "POST", DatasetController, payload)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func CreateChart(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "POST", ChartController, payload)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
 func getCsrftoken(client *Goperset, tokens ClientToken) (string, error) {
 	body, err := ClientResty(client, tokens, "application/json", "GET", csrfEndpoint, nil)
 	if err != nil {
