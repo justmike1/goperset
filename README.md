@@ -48,7 +48,7 @@ func main() {
 }
 ```
 
-### Example of a general REST request. (Creating a new database connection)
+### Example of Creating a new database connection
 
 ```go
 func createDatabase(client, tokens string) error {
