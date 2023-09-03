@@ -51,7 +51,7 @@ func main() {
 ### Example of a general REST request. (Creating a new database connection)
 
 ```go
-func createDatabase(client, token string, csrfToken string) error {
+func createDatabase(client, tokens string) error {
     databaseUri := fmt.Sprintf("postgresql+psycopg2://%s:%s@%s:%s/database", "username", "password", "postgresql", "5432")
     payload := structs.DatabasePayload{
         ConfigurationMethod: "sqlalchemy_form",
