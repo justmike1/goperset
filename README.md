@@ -5,7 +5,7 @@ Golang Apache Superset API Package
 
 This project is mentioned in the [Apache Superset](https://superset.apache.org/) [official wiki](https://github.com/apache/superset/wiki/Community-Resource-Library#third-party-libraries) as a Golang API Package.
 
-This project structure is based on: [gocloak](https://github.com/Nerzal/gocloak)
+This project is inspired from: [gocloak](https://github.com/Nerzal/gocloak)
 
 For Questions either raise an issue, or come to the [gopher-slack](https://invite.slack.golangbridge.org/) into the channel [#goperset](https://gophers.slack.com/app_redirect?channel=goperset)
 
