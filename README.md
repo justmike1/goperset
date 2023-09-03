@@ -39,7 +39,7 @@ go get github.com/justmike1/goperset@v0.1.0
 ```go
 func main() {
     ctx := context.Background()
-    client := goperset.NewClient(ctx, "https://superset.domain.net/") // Client also has a context
+    client := goperset.NewClient(ctx, "https://superset.domain.net/")
     tokens, err := goperset.GetAccessTokens(client, "admin", "admin")
     if err != nil {
         t.Errorf("Error getting access tokens: %v", err)
