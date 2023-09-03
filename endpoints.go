@@ -11,6 +11,7 @@ const (
 
 const (
 	DatabaseController         = "/api/v1/database/"
+	DatasetController          = "/api/v1/dataset/"
 	DashboardController        = "/api/v1/dashboard/"
 	AdvancedDataTypeController = "/api/v1/advanced_data_type/"
 	AnnotationLayerController  = "/api/v1/annotation_layer/"
