@@ -29,6 +29,14 @@ func NewClient(ctx context.Context, basePath string) *Goperset {
 	}
 }
 
+func CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayload) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "POST", DatabaseController, payload)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
 func getCsrftoken(client *Goperset, tokens ClientToken) (string, error) {
 	body, err := ClientResty(client, tokens, "application/json", "GET", csrfEndpoint, nil)
 	if err != nil {

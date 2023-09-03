@@ -59,11 +59,10 @@ func createDatabase(client, token string, csrfToken string) error {
         DatabaseName:        "PostgreSQL",
         SQLAlchemyURI:       databaseUri,
     }
-    body, err := goperset.ClientResty(client, tokens, "application/json", "POST", goperset.DatabaseController, payload)
+    _, err := goperset.CreateDatabase(client, tokens, payload)
     if err != nil {
         return fmt.Errorf("error sending request: %v", err)
     }
-    log.Infof("Database Creation Response: %s", string(body))
     return nil
 }
 ```
@@ -77,5 +76,8 @@ type GoPerset interface {
  NewClient(basePath string) &Goperset
  GetAccessTokens(client *Goperset, username string, password string) (string, string, error)
  ClientResty(client *Goperset, token string, csrfToken string, contentType string, method string, endpoint string, payload interface{}) ([]byte, error)
+ 
+ // Database
+ CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayload) ([]byte, error)
 }
 ```
