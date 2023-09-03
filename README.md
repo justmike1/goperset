@@ -19,19 +19,21 @@ __SOON__: Benchmarks can be found [here](https://justmike1.github.io/goperset/de
 
 For release notes please consult the specific releases [here](https://github.com/justmike1/goperset/releases)
 
+For tags please consult the specific tags [here](https://github.com/justmike1/goperset/tags)
+
 
 ## Usage
 
 ### Installation
 
 ```shell
-go get github.com/justmike1/goperset@v0.1.0
+go install github.com/justmike1/goperset@latest
 ```
 
 ### Importing
 
 ```go
- import "github.com/justmike1/goperset@v0.1.0"
+ import "github.com/justmike1/goperset"
 ```
 
 ### Connecting to Superset Client
