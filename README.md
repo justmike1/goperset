@@ -83,6 +83,11 @@ type GoPerset interface {
  // Database
  CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayload) ([]byte, error)
  
+ // Dashboard
+ CreateDashboard(client *Goperset, tokens ClientToken, payload DashboardPayload) ([]byte, error)
+ GetDashboard(client *Goperset, tokens ClientToken, params GetDashboardParams) ([]byte, error)
+ GetDashboardInfo(client *Goperset, tokens ClientToken, params DashboardInfoParams) ([]byte, error)
+
  // Dataset
  CreateDataset(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error)
  

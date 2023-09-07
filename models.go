@@ -23,6 +23,48 @@ type Goperset struct {
 	Context  context.Context
 }
 
+type DashboardPayload struct {
+	CertificationDetails *string `json:"certification_details"`
+	CertifiedBy          *string `json:"certified_by"`
+	Css                  *string `json:"css"`
+	DashboardTitle       *string `json:"dashboard_title"`
+	ExternalUrl          *string `json:"external_url"`
+	IsManagedExternally  *bool   `json:"is_managed_externally"`
+	JsonMetadata         *string `json:"json_metadata"`
+	Owners               []*int  `json:"owners"`
+	PositionJson         *string `json:"position_json"`
+	Published            *bool   `json:"published"`
+	Roles                []*int  `json:"roles"`
+	Slug                 *string `json:"slug"`
+}
+
+type GetDashboardParams struct {
+	Columns        []*string `json:"columns"`
+	Filters        []Filter  `json:"filters"`
+	Keys           []*string `json:"keys"`
+	OrderColumn    *string   `json:"order_column"`
+	OrderDirection *string   `json:"order_direction"`
+	Page           *int      `json:"page"`
+	PageSize       *int      `json:"page_size"`
+}
+
+type Filter struct {
+	Col   *string `json:"col"`
+	Opr   *string `json:"opr"`
+	Value *int    `json:"value"`
+}
+
+type PageInfo struct {
+	Page     *int `json:"page"`
+	PageSize *int `json:"page_size"`
+}
+
+type DashboardInfoParams struct {
+	AddColumns  map[string]PageInfo `json:"add_columns"`
+	EditColumns map[string]PageInfo `json:"edit_columns"`
+	Keys        []*string           `json:"keys"`
+}
+
 type DatabasePayload struct {
 	Engine               *string            `json:"engine"`
 	ConfigurationMethod  *string            `json:"configuration_method"`

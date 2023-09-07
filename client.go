@@ -37,6 +37,30 @@ func CreateDatabase(client *Goperset, tokens ClientToken, payload DatabasePayloa
 	return body, nil
 }
 
+func CreateDashboard(client *Goperset, tokens ClientToken, payload DashboardPayload) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "POST", DashboardController, payload)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func GetDashboard(client *Goperset, tokens ClientToken, params GetDashboardParams) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "GET", DashboardController, params)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func GetDashboardInfo(client *Goperset, tokens ClientToken, params DashboardInfoParams) ([]byte, error) {
+	body, err := ClientResty(client, tokens, "application/json", "GET", DashboardInfoEndpoint, params)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
 func CreateDataset(client *Goperset, tokens ClientToken, payload DatasetPayload) ([]byte, error) {
 	body, err := ClientResty(client, tokens, "application/json", "POST", DatasetController, payload)
 	if err != nil {
